@@ -1,4 +1,6 @@
 ﻿using System;
+using A827141.Actividad03.Helper;
+using A827141.Actividad03.Model;
 
 namespace A827141.Actividad03
 {
@@ -6,7 +8,15 @@ namespace A827141.Actividad03
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            LibroDiario libroDiario = new LibroDiario();
+            PlanCuentas planCuentas = new PlanCuentas();
+
+            CustomInput.IngresoAsientosContables(libroDiario, planCuentas);
+
+            foreach (AsientoContable asiento in libroDiario.Asientos)
+            {
+                Console.WriteLine($"{asiento.Fecha} Balance: {asiento.balance()}");
+            }
         }
     }
 }

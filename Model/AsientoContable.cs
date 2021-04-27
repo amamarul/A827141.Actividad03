@@ -1,0 +1,72 @@
+using System.Collections.Generic;
+using System.Linq;
+
+namespace A827141.Actividad03.Model
+{
+    public class AsientoContable
+    {
+        private List<LineaAsientoContable> _lineas = new List<LineaAsientoContable> {};
+        private int _nroAsiento;
+        private string _fecha;
+
+        public AsientoContable(
+            int nroAsiento,
+            string fecha
+        ) {
+            this._nroAsiento = nroAsiento;
+            this._fecha = fecha;
+        }
+        
+        public int NroAsiento
+        {
+            get => this._nroAsiento;
+        }
+
+        public string Fecha
+        {
+            get => this._fecha;
+        }
+
+        public List<LineaAsientoContable> Lineas
+        {
+            get => this._lineas;
+        }
+
+        public void agregarLinea(LineaAsientoContable linea)
+        {
+            this._lineas.Add(linea);
+        }
+
+        public decimal totalDebe()
+        {
+            return this._lineas.Sum(linea => {
+                return linea.Columna == TipoMovimiento.Debe ? linea.Importe : 0;
+            });
+        }
+
+        public decimal totalHaber()
+        {
+            return this._lineas.Sum(linea => {
+                return linea.Columna == TipoMovimiento.Haber ? linea.Importe : 0;
+            });
+        }
+
+        public decimal balance()
+        {
+            return this._lineas.Sum(linea => {
+                return linea.Columna == TipoMovimiento.Debe ? linea.Importe : (linea.Importe * -1);
+            });
+        }
+
+        public string reporte()
+        {
+            string reporte = "Debe | Haber";
+
+            reporte += string.Format($"{this.totalDebe()} | {this.totalHaber()}\n");
+            reporte += string.Format($"--------------------------\n");
+            reporte += string.Format($"balance asiento: {this.balance()}");
+
+            return reporte;
+        }
+    }
+}
