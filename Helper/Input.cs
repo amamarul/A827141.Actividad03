@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.Text.RegularExpressions;
 
 namespace A827141.Actividad03.Helper
 {
@@ -13,6 +14,18 @@ namespace A827141.Actividad03.Helper
                 Input.WriteYellowLine(mensaje);
                 texto = Console.ReadLine();
             } while (texto == "");
+
+            return texto;
+        }
+
+        public static string IngresoFecha(string mensaje = "Ingrese una fecha válida.")
+        {
+            string texto;
+
+            do {
+                Input.WriteYellowLine(mensaje + " (Formato dd-mm-aaaa)");
+                texto = Console.ReadLine();
+            } while (!Regex.IsMatch(texto, @"^\d\d-\d\d-\d\d\d\d$"));
 
             return texto;
         }
