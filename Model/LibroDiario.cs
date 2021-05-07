@@ -28,7 +28,24 @@ namespace A827141.Actividad03.Model
 
         public string generarLibroDiario()
         {
-            return "NroAsiento|Fecha|CodigoCuenta|Debe|Haber";
+            string reporte = "Asiento|Fecha|CodigoCuenta|Debe|Haber\n";
+            foreach (AsientoContable asiento in this._asientos)
+            {
+                foreach (LineaAsientoContable linea in asiento.Lineas)
+                {
+                    reporte += string.Format(
+                        "{0}|{1}|{2}|{3}|{4} \n",
+                        asiento.NroAsiento,
+                        asiento.Fecha,
+                        linea.Cuenta.Codigo,
+                        linea.Columna == TipoMovimiento.Debe ? linea.Importe : "  ",
+                        linea.Columna == TipoMovimiento.Haber ? linea.Importe : "  "
+                    );
+                }
+                reporte += "-------------------";
+            }
+
+            return reporte;
         }
 
         public string guardarAsiento()

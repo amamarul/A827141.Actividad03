@@ -29,31 +29,21 @@ namespace A827141.Actividad03.Helper
         {
             Console.WriteLine("\tIngrese las lineas del asiento");
 
-            bool salida = false;
+            bool salida = true;
 
             do
             {
                 Cuenta cuenta = CustomInput.IngresoCuentaContable(planCuentas);
 
-                TipoMovimiento columa = CustomInput.IngresoTipoColumna();
+                TipoMovimiento columna = CustomInput.IngresoTipoColumna();
 
                 int importe = Input.IngresoNumeroPositivo("Ingrese el monto");
 
-                if (asientoContable.Lineas.Count > 0)
-                {
-                    Console.WriteLine(asientoContable.reporte());
-                }
-
-                salida = Input.IngresoVerdaderoFalso("¿Desea finalizar la carga de lineas?");
+                salida = Input.IngresoVerdaderoFalso("¿Desea continuar la carga de lineas?");
                 
-                if (
-                    asientoContable.balance() == 0 
-                    && salida
-                ) {
-                    asientoContable.agregarLinea(
-                        new LineaAsientoContable(cuenta, importe, columa)
-                    );
-                }
+                asientoContable.agregarLinea(
+                    new LineaAsientoContable(cuenta, importe, columna)
+                );                
             } while (salida);
 
             return asientoContable;
@@ -73,16 +63,15 @@ namespace A827141.Actividad03.Helper
                 Console.WriteLine("\t" + Mensaje);
 
                 int nroAsiento = libroDiario.ProximoNumeroAsiento;
-                string fecha = Input.IngresoTexto("Ingrese la fecha del asiento a cargar. Formato dd/mm/aaaa");
+                string fecha = Input.IngresoTexto("Ingrese la fecha del asiento a cargar. Formato dd-mm-aaaa");
 
                 AsientoContable asientoContable = new AsientoContable(nroAsiento, fecha);
 
                 CustomInput.IngresoLineasAsiento(asientoContable, planCuentas);
 
                 salida = Input.IngresoVerdaderoFalso("¿Desea ingresar otro asiento?");
-
-                if (salida)
-                {
+                
+                if (asientoContable.balance() == 0) {
                     libroDiario.agregarAsientoContable(asientoContable);
                 }
             } while (salida);

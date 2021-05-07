@@ -12,11 +12,8 @@ namespace A827141.Actividad03
             PlanCuentas planCuentas = new PlanCuentas();
 
             CustomInput.IngresoAsientosContables(libroDiario, planCuentas);
-
-            foreach (AsientoContable asiento in libroDiario.Asientos)
-            {
-                Console.WriteLine($"{asiento.Fecha} Balance: {asiento.balance()}");
-            }
+            
+            Console.WriteLine(libroDiario.generarLibroDiario());
         }
     }
 }

@@ -37,30 +37,28 @@ namespace A827141.Actividad03.Model
             this._lineas.Add(linea);
         }
 
-        public decimal totalDebe()
+        public int totalDebe()
         {
             return this._lineas.Sum(linea => {
                 return linea.Columna == TipoMovimiento.Debe ? linea.Importe : 0;
             });
         }
 
-        public decimal totalHaber()
+        public int totalHaber()
         {
             return this._lineas.Sum(linea => {
                 return linea.Columna == TipoMovimiento.Haber ? linea.Importe : 0;
             });
         }
 
-        public decimal balance()
+        public int balance()
         {
-            return this._lineas.Sum(linea => {
-                return linea.Columna == TipoMovimiento.Debe ? linea.Importe : (linea.Importe * -1);
-            });
+            return this._totalDebe - this._totalHaber;
         }
 
         public string reporte()
         {
-            string reporte = "Debe | Haber";
+            string reporte = "Debe | Haber\n";
 
             reporte += string.Format($"{this.totalDebe()} | {this.totalHaber()}\n");
             reporte += string.Format($"--------------------------\n");
