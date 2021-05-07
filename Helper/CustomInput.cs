@@ -43,7 +43,20 @@ namespace A827141.Actividad03.Helper
                 
                 asientoContable.agregarLinea(
                     new LineaAsientoContable(cuenta, importe, columna)
-                );                
+                );
+
+                if (
+                    asientoContable.balance() != 0
+                    && !salida
+                ) {
+                    Input.WriteYellowLine($"ATENCION");
+
+                    Input.WriteYellowLine($"El asiento es inconsistente, el balance actual es de {asientoContable.balance()}.");
+                    
+                    Input.WriteYellowLine($"Si no agrega otra linea el asiento será descartado.");
+                    
+                    salida = Input.IngresoVerdaderoFalso("¿Desea continuar la carga de lineas?");
+                }
             } while (salida);
 
             return asientoContable;
@@ -63,7 +76,8 @@ namespace A827141.Actividad03.Helper
                 Console.WriteLine("\t" + Mensaje);
 
                 int nroAsiento = libroDiario.ProximoNumeroAsiento;
-                string fecha = Input.IngresoTexto("Ingrese la fecha del asiento a cargar. Formato dd-mm-aaaa");
+
+                string fecha = Input.IngresoFecha("Ingrese la fecha del asiento a cargar.");
 
                 AsientoContable asientoContable = new AsientoContable(nroAsiento, fecha);
 
