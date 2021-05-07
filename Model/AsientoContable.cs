@@ -53,7 +53,7 @@ namespace A827141.Actividad03.Model
 
         public int balance()
         {
-            return this._totalDebe - this._totalHaber;
+            return this.totalDebe() - this.totalHaber();
         }
 
         public string reporte()

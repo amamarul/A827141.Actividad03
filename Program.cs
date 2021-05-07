@@ -9,9 +9,8 @@ namespace A827141.Actividad03
         static void Main(string[] args)
         {
             LibroDiario libroDiario = new LibroDiario();
-            PlanCuentas planCuentas = new PlanCuentas();
 
-            CustomInput.IngresoAsientosContables(libroDiario, planCuentas);
+            CustomInput.IngresoAsientosContables(libroDiario, libroDiario.PlanCuentas);
             
             Console.WriteLine(libroDiario.generarLibroDiario());
         }
