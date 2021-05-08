@@ -1,18 +1,19 @@
 ﻿using System;
 using A827141.Actividad03.Helper;
 using A827141.Actividad03.Model;
-
+using System.ComponentModel;
+using System.Collections.Generic;
+using System.Linq;
 namespace A827141.Actividad03
 {
     class Program
     {
         static void Main(string[] args)
         {
-            LibroDiario libroDiario = new LibroDiario();
+            PlanCuentas planCuentas = new PlanCuentas();
 
-            CustomInput.IngresoAsientosContables(libroDiario, libroDiario.PlanCuentas);
-            
-            Console.WriteLine(libroDiario.generarLibroDiario());
+            planCuentas.agregarMovimientos();
+            planCuentas.generarMayor();
         }
     }
 }
